@@ -48,10 +48,14 @@ var loading = ref(true);
 
 onMounted(() => {
     getAllEstados();
+    doLoading() 
+});
+
+function doLoading() {
     setTimeout(() => {
         loading.value = false;
-    }, 4000);
-});
+    }, 3000);
+}
 
 function getAllEstados() {
     axios.get('https://servicodados.ibge.gov.br/api/v1/localidades/estados').then(response => {
