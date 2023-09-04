@@ -25,7 +25,7 @@
             bg="bg-tertiary"
             />
 
-            <div class="absolute bottom-12 right-0 w-full">
+            <div class="absolute bottom-0 right-0 w-full">
                 <ShortMessage 
                 bg="bg-[#DECE93]"
                 content="Jogo desenvolvido por Tony Albert"
