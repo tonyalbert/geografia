@@ -1,10 +1,10 @@
 <template>
-    <div :class="{ '-top-full': !loading }" class="fixed -top-full left-0 w-screen h-screen bg-capital-primary transition-all duration-700">
+    <!-- <div :class="{ '-top-full': !loading }" class="fixed -top-full left-0 w-screen h-screen bg-capital-primary transition-all duration-700">
         <div class="flex flex-col items-center justify-center h-full">
             <h1 class="text-white text-center text-3xl font-bold">Carregando...</h1>
             <img class="w-28" :src="eartLoading" alt="">
         </div>
-    </div>
+    </div> -->
 
     <section :class="{'pt-24': !jogoIniciado}"  class="bg-capital-primary h-screen flex flex-col px-4">
 
