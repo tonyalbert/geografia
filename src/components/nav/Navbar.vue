@@ -5,7 +5,7 @@
         </button>
             <Logo />
         <button>
-            <img :src="Menu" alt="">
+            <img src="" alt="">
         </button>
     </nav>
 </template>

@@ -6,6 +6,31 @@
         </div>
     </div> -->
 
+    <div v-show="estatisticas" class="absolute flex top-0 left-0 w-screen h-screen backdrop-blur-md z-50 px-8">
+        <div class="flex flex-col items-center justify-center h-full">
+            <div class="flex flex-col items-center space-y-4">
+                <h1 class="text-white text-3xl font-bold">Parabens!</h1>
+                <p class="text-white text-sm font-bold">Você acertou {{ estadosJaSorteados.length - 1 }} capitais em {{ timer }} segundos</p>
+                    
+                    <ButtonGame 
+                        v-show="!jogoIniciado" 
+                        content="JOGAR NOVAMENTE" 
+                        bg="bg-secondary"
+                        link="/capitais"
+                        @click="zerarJogo();"
+
+                    />
+
+                    <ButtonGame 
+                        v-show="!jogoIniciado" 
+                        content="VOLTAR AO MENU" 
+                        bg="bg-secondary"
+                        link="/"
+                    />
+            </div>
+        </div>
+    </div>
+
     <section class="bg-capital-primary h-screen flex flex-col px-4">
 
         <div class="my-auto" v-show="!jogoIniciado">
@@ -18,13 +43,22 @@
             <div class="my-auto">
                 <div class="absolute bottom-3 w-11/12">
 
+                    <p v-if="!jogoIniciado" class="text-white text-center mb-2 font-bold">{{ timer }}s</p>
+
                     <div v-show="!jogoIniciado" class="flex justify-center">
                         <div id="time" class="flex justify-center font-bold mb-4 rounded-md">
-                            <div class="w-16 bg-tertiary cursor-pointer hover:bg-secondary transition-colors text-center border-[3px] border-black rounded-l-md">30s</div>
-                            <div class="w-16 bg-tertiary cursor-pointer hover:bg-secondary transition-colors text-center border-[3px] border-black">1min</div>
-                            <div class="w-16 bg-tertiary cursor-pointer hover:bg-secondary transition-colors text-center border-[3px] border-black rounded-r-md">5min</div>
+                            <div @click="setTimer(30)" class="w-16 bg-tertiary cursor-pointer hover:bg-secondary transition-colors text-center border-[3px] border-black rounded-l-md">30s</div>
+                            <div @click="setTimer(60)" class="w-16 bg-tertiary cursor-pointer hover:bg-secondary transition-colors text-center border-[3px] border-black">1min</div>
+                            <div @click="setTimer(120)" class="w-16 bg-tertiary cursor-pointer hover:bg-secondary transition-colors text-center border-[3px] border-black rounded-r-md">2min</div>
                         </div>  
                     </div>
+
+                    <ShortMessage 
+                        bg="bg-[#C87D7D]" 
+                        content="Selecione um tempo!" 
+                        class="mb-4"
+                        v-show="messageTime"
+                    />
 
                     <ButtonGame 
                     v-show="!jogoIniciado" 
@@ -44,6 +78,7 @@
                 <div v-show="jogoIniciado">
                     
                     <div class="flex flex-col items-center justify-center mb-8 text-white">
+                        <p v-if="jogoIniciado" class="text-white text-center mb-2 font-bold">{{ timer }}s</p>
                         <p class="text-md font-bold">{{ estadosJaSorteados.length }}/{{ estados.length }}</p>
                         <h1 class="text-3xl font-bold "
                             v-for="estado in estadoSorteado"
@@ -53,8 +88,9 @@
                     </div>
 
                     <form @submit.prevent="verificarTentativa" class="flex flex-col items-center justify-center">
-                        <input type="text" v-model="tentativa" name="tentativa" autocomplete="off" id="input-tentativa" class="w-full py-2 px-4 rounded-full border-[5px] border-black">
+                        <input type="text" v-model="tentativa" name="tentativa" autocomplete="off" id="input-tentativa" class="w-full py-2 px-4 rounded-full border-[5px] border-black focus-visible:outline-none font-bold">
                         <input type="submit" id="enviar-tentativa" class="rounded-md border-[5px] border-black bg-secondary px-6 mt-4 font-bold cursor-pointer">
+                        <span class="text-[10px] font-bold mt-2 text-white">Ou aperte enter</span>
                     </form>
 
                     <div class="flex flex-col items-center justify-center mt-4">
@@ -101,7 +137,9 @@ var estadoSorteado = ref([]);
 var tentativa = ref('');
 var loading = ref(true);
 var timer = ref(0);
+var messageTime = ref(false);
 var statusTentativa = ref('neutral');
+var estatisticas = ref(false);
 
 onMounted(() => {
     getAllEstados();
@@ -131,6 +169,10 @@ function verificarTentativa() {
         }
     }
     tentativa.value = '';
+}
+
+function setTimer(time) {
+    timer.value = time;
 }
 
 function sendTentativaStatus(status) {
@@ -175,14 +217,37 @@ function compararStrings(str1, str2) {
 }
 
 function iniciarJogo() {
-    jogoIniciado.value = true;
-    sortearEstado();
+    if(timer.value == 0) {
+        messageTime.value = true;
+        setTimeout(() => {
+            messageTime.value = false;
+        }, 2000);
+    } else {
+        jogoIniciado.value = true;
+        sortearEstado();
+        let intervalRef;
+        intervalRef = setInterval(() => {
+        if (timer.value > 0 && jogoIniciado) {
+            timer.value--;
+        } else {
+            pararJogo();
+            console.log("Acabou!");
+            clearInterval(intervalRef);
+        }
+        }, 1000);
+    }
 }
 
 function pararJogo() {
     jogoIniciado.value = false;
+    estatisticas = true;
+}
+
+function zerarJogo() {
+    jogoIniciado.value = false;
     timer.value = 0;
     estadosJaSorteados.value = [];
+    estatisticas = false;
 }
 
 </script>
