@@ -1,20 +1,42 @@
 <template>
     <section class="min-h-screen flex bg-[#ECE6C2]">
         <div class="flex flex-col space-y-5 my-auto mx-auto">
-            <ButtonGame game="ACERTE AS CAPITAIS" link="/capitais"/>
-            <ButtonGame game="???" link="/"/>
-            <ButtonGame game="???" link="/"/>
-            <ButtonGame game="???" link="/"/>
-        </div>
+            <ButtonGame 
+            content="ACERTE AS CAPITAIS" 
+            link="/capitais"
+            bg="bg-tertiary"
+            />
 
-        <div class="absolute bottom-12 left-1/2 right-1/2">
-            <Message />
+            <ButtonGame 
+            content="???" 
+            link="/"
+            bg="bg-tertiary"
+            />
+
+            <ButtonGame 
+            content="???" 
+            link="/"
+            bg="bg-tertiary"
+            />
+
+            <ButtonGame 
+            content="???" 
+            link="/"
+            bg="bg-tertiary"
+            />
+
+            <div class="absolute bottom-12 right-0 w-full">
+                <ShortMessage 
+                bg="bg-[#DECE93]"
+                content="Jogo desenvolvido por Tony Albert"
+                />
+            </div>
         </div>
     </section>
 </template>
 
 <script setup>
 import ButtonGame from '../components/home/ButtonGame.vue';
-import Message from '../components/shared/Message.vue';
+import ShortMessage from '../components/shared/ShortMessage.vue';
 
 </script>
