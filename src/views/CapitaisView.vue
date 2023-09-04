@@ -1,10 +1,10 @@
 <template>
-    <div :class="{ '-top-full': !loading }" class="fixed top-0 left-0 w-screen h-screen bg-stone-900 transition-all duration-700">
+    <!-- <div :class="{ '-top-full': !loading }" class="fixed top-0 left-0 w-screen h-screen bg-stone-900 transition-all duration-700">
         <div class="flex flex-col items-center justify-center h-full">
             <h1 class="text-white text-center text-3xl font-bold">Carregando...</h1>
             <img class="w-28" :src="eartLoading" alt="">
         </div>
-    </div>
+    </div> -->
 
     <section class="bg-stone-800 text-white h-screen flex flex-col justify-center items-center">
             <div class="">
@@ -36,7 +36,7 @@
 <script setup>
 import { ref, onMounted } from 'vue';
 import { todosEstados } from '../assets/data/todosEstados.js';
-import eartLoading from '../../public/images/eartLoading.gif';
+import eartLoading from '/images/eartLoading.gif';
 import axios from 'axios';
 
 const estados = ref([]);
@@ -48,14 +48,12 @@ var loading = ref(true);
 
 onMounted(() => {
     getAllEstados();
-    doLoading() 
-});
-
-function doLoading() {
     setTimeout(() => {
         loading.value = false;
-    }, 3000);
-}
+    }, 4000);
+});
+
+
 
 function getAllEstados() {
     axios.get('https://servicodados.ibge.gov.br/api/v1/localidades/estados').then(response => {
