@@ -1,13 +1,20 @@
 <template>
-    <section class="flex flex-col bg-blue-800 justify-center items-center h-screen">
-        <h1 class="text-white text-center text-5xl font-bold">
-            Vovó Geo
-        </h1>
-        <div class="grid grid-cols-2 justify-center items-center">
-            <h1><RouterLink to="/capitais">Capitais</RouterLink></h1>
-            <h1>Jogo 2</h1>
-            <h1>Jogo 3</h1>
-            <h1>Jogo 4</h1>
+    <section class="min-h-screen flex bg-[#ECE6C2]">
+        <div class="flex flex-col space-y-5 my-auto mx-auto">
+            <ButtonGame game="ACERTE AS CAPITAIS" link="/capitais"/>
+            <ButtonGame game="???" link="/"/>
+            <ButtonGame game="???" link="/"/>
+            <ButtonGame game="???" link="/"/>
+        </div>
+
+        <div class="absolute bottom-12 left-1/2 right-1/2">
+            <Message />
         </div>
     </section>
 </template>
+
+<script setup>
+import ButtonGame from '../components/home/ButtonGame.vue';
+import Message from '../components/shared/Message.vue';
+
+</script>
