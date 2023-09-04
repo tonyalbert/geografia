@@ -25,7 +25,7 @@
                     </form>
 
                     <div>
-                        
+
                     </div>
                 </div>
             </div>
@@ -50,7 +50,7 @@ onMounted(() => {
     getAllEstados();
     setTimeout(() => {
         loading.value = false;
-    }, 2000);
+    }, 4000);
 });
 
 function getAllEstados() {
