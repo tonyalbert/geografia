@@ -6,15 +6,14 @@
         </div>
     </div> -->
 
-    <section :class="{'pt-24': !jogoIniciado}"  class="bg-capital-primary h-screen flex flex-col px-4">
+    <section class="bg-capital-primary h-screen flex flex-col px-4">
 
-        <div v-show="!jogoIniciado">
+        <div class="my-auto" v-show="!jogoIniciado">
             <Message 
             bg="bg-[#DECE93]" 
             content="Digite a capital do estado que aparecer na tela. Se acertar, avance. Se errar, tente novamente ou pule para o próximo estado. Continue até acertar todos os estados. Divirta-se!"
             />
         </div>
-
         
             <div class="my-auto">
                 <div class="absolute bottom-3 w-11/12">
@@ -42,13 +41,7 @@
                     />
                 </div>
 
-
-
                 <div v-show="jogoIniciado">
-                    
-                    <!-- <div>
-                        {{ timer }}
-                    </div> -->
                     
                     <div class="flex flex-col items-center justify-center mb-8 text-white">
                         <p class="text-md font-bold">{{ estadosJaSorteados.length }}/{{ estados.length }}</p>
@@ -63,6 +56,25 @@
                         <input type="text" v-model="tentativa" name="tentativa" autocomplete="off" id="input-tentativa" class="w-full py-2 px-4 rounded-full border-[5px] border-black">
                         <input type="submit" id="enviar-tentativa" class="rounded-md border-[5px] border-black bg-secondary px-6 mt-4 font-bold cursor-pointer">
                     </form>
+
+                    <div class="flex flex-col items-center justify-center mt-4">
+
+                        <div v-if="statusTentativa == 'true'">
+                            <ShortMessage 
+                                bg="bg-secondary" 
+                                content="Capital acertada!" 
+                            />
+                        </div>
+
+                        <div v-if="statusTentativa == 'false'">
+                            <ShortMessage 
+                                bg="bg-[#C87D7D]" 
+                                content="Capital errada!" 
+                            />
+                        </div>
+
+                    </div>
+
                 </div>
 
             </div>
@@ -79,6 +91,8 @@ import eartLoading from '/images/eartLoading.gif';
 import axios from 'axios';
 import ButtonGame from '../components/home/ButtonGame.vue';
 import Message from '../components/shared/Message.vue';
+import ShortMessage from '../components/shared/ShortMessage.vue';
+
 
 const estados = ref([]);
 var jogoIniciado = ref(false);
@@ -87,6 +101,7 @@ var estadoSorteado = ref([]);
 var tentativa = ref('');
 var loading = ref(true);
 var timer = ref(0);
+var statusTentativa = ref('neutral');
 
 onMounted(() => {
     getAllEstados();
@@ -107,14 +122,27 @@ function getAllEstados() {
 function verificarTentativa() {
     const capital = getCapital();
     var result = compararStrings(capital, tentativa.value);
+    sendTentativaStatus(result);
     if (result) {
         if(estadosJaSorteados.length == 26) {
             jogoIniciado.value = false;
         } else {
-            sortearEstado();    
+            sortearEstado();   
         }
     }
     tentativa.value = '';
+}
+
+function sendTentativaStatus(status) {
+    if(status) {
+        statusTentativa.value = 'true';
+    } else {
+        statusTentativa.value = 'false';
+    }
+
+    setInterval(() => {
+        statusTentativa.value = 'neutral';
+    }, 2000)
 }
 
 function getCapital() {
