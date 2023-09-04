@@ -7,7 +7,7 @@
     </div> -->
 
     <div v-show="estatisticas" class="absolute flex top-0 left-0 w-screen h-screen backdrop-blur-md z-50 px-8">
-        <div class="flex flex-col items-center justify-center h-full">
+        <div class="flex flex-col w-full items-center justify-center h-full">
             <div class="flex flex-col items-center space-y-4">
                 <h1 class="text-white text-3xl font-bold">Parabens!</h1>
                 <p class="text-white text-sm font-bold">Você acertou {{ estadosJaSorteados.length - 1 }} capitais em {{ timer }} segundos</p>
