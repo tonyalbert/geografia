@@ -1,6 +1,6 @@
 <template>
     <section class="min-h-screen flex bg-[#ECE6C2]">
-        <div class="flex flex-col space-y-5 my-auto mx-auto">
+        <div class="flex flex-col space-y-5  my-auto mx-auto md:grid md:grid-cols-2 md:space-y-0">
             <ButtonGame 
             content="ACERTE AS CAPITAIS" 
             link="/capitais"
