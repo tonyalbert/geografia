@@ -31,7 +31,7 @@
         </div>
     </div>
 
-    <section class="bg-capital-primary h-screen flex flex-col px-4">
+    <section class="bg-capital-primary h-screen flex flex-col px-4 md:px-52">
 
         <div class="my-auto" v-show="!jogoIniciado">
             <Message 
@@ -40,8 +40,8 @@
             />
         </div>
         
-            <div class="my-auto">
-                <div class="absolute bottom-3 w-11/12">
+            <div class="my-auto mx-auto">
+                <div class="absolute bottom-3 w-11/12 md: md:flex md:w-64 md:flex-col">
 
                     <p v-if="!jogoIniciado" class="text-white text-center mb-2 font-bold">{{ timer }}s</p>
 
@@ -61,26 +61,26 @@
                     />
 
                     <ButtonGame 
-                    v-show="!jogoIniciado" 
-                    content="INICIAR" 
-                    bg="bg-secondary"
-                    @click="iniciarJogo"
+                        v-show="!jogoIniciado" 
+                        content="INICIAR" 
+                        bg="bg-secondary"
+                        @click="iniciarJogo"
                     />
 
                     <ButtonGame 
-                    v-show="jogoIniciado" 
-                    content="PARAR" 
-                    bg="bg-[#C87D7D]"
-                    @click="pararJogo"
+                        v-show="jogoIniciado" 
+                        content="PARAR" 
+                        bg="bg-[#C87D7D]"
+                        @click="pararJogo"
                     />
                 </div>
 
                 <div v-show="jogoIniciado">
                     
-                    <div class="flex flex-col items-center justify-center mb-8 text-white">
-                        <p v-if="jogoIniciado" class="text-white text-center mb-2 font-bold">{{ timer }}s</p>
-                        <p class="text-md font-bold">{{ estadosJaSorteados.length }}/{{ estados.length }}</p>
-                        <h1 class="text-3xl font-bold "
+                    <div class="flex flex-col items-center justify-center mb-8 md:space-y-5 text-white">
+                        <p v-if="jogoIniciado" class="text-white text-center md:text-2xl mb-2 font-bold">{{ timer }}s</p>
+                        <p class="text-md font-bold md:text-2xl">{{ estadosJaSorteados.length }}/{{ estados.length }}</p>
+                        <h1 class="text-3xl md:text-6xl font-bold "
                             v-for="estado in estadoSorteado"
                             :key="estado.id">
                             {{ estado.nome }}
@@ -88,7 +88,7 @@
                     </div>
 
                     <form @submit.prevent="verificarTentativa" class="flex flex-col items-center justify-center">
-                        <input type="text" v-model="tentativa" name="tentativa" autocomplete="off" id="input-tentativa" class="w-full py-2 px-4 rounded-full border-[5px] border-black focus-visible:outline-none font-bold">
+                        <input type="text" v-model="tentativa" name="tentativa" autocomplete="off" id="input-tentativa" class="w-full py-2 px-4 rounded-full border-[5px] border-black focus-visible:outline-none font-bold md:text-center md:w-96">
                         <input type="submit" id="enviar-tentativa" class="rounded-md border-[5px] border-black bg-secondary px-6 mt-4 font-bold cursor-pointer">
                         <span class="text-[10px] font-bold mt-2 text-white">Ou aperte enter</span>
                     </form>
@@ -125,7 +125,7 @@ import { ref, onMounted } from 'vue';
 import { todosEstados } from '../assets/data/todosEstados.js';
 import eartLoading from '/images/eartLoading.gif';
 import axios from 'axios';
-import ButtonGame from '../components/home/ButtonGame.vue';
+import ButtonGame from '../components/shared/ButtonGame.vue';
 import Message from '../components/shared/Message.vue';
 import ShortMessage from '../components/shared/ShortMessage.vue';
 

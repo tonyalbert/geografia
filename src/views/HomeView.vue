@@ -1,25 +1,25 @@
 <template>
-    <section class="min-h-screen flex bg-[#ECE6C2]">
-        <div class="flex flex-col space-y-5  my-auto mx-auto md:grid md:grid-cols-2 md:space-y-0">
-            <ButtonGame 
+    <section class="min-h-screen flex bg-capital-primary">
+        <div class="flex flex-col space-y-5 my-auto mx-auto md:grid md:grid-cols-2 md:space-y-0 md:gap-10">
+            <ButtonHome 
             content="ACERTE AS CAPITAIS" 
             link="/capitais"
             bg="bg-tertiary"
             />
 
-            <ButtonGame 
+            <ButtonHome 
             content="???" 
             link="/"
             bg="bg-tertiary"
             />
 
-            <ButtonGame 
+            <ButtonHome 
             content="???" 
             link="/"
             bg="bg-tertiary"
             />
 
-            <ButtonGame 
+            <ButtonHome 
             content="???" 
             link="/"
             bg="bg-tertiary"
@@ -36,7 +36,7 @@
 </template>
 
 <script setup>
-import ButtonGame from '../components/home/ButtonGame.vue';
+import ButtonHome from '../components/home/ButtonHome.vue';
 import ShortMessage from '../components/shared/ShortMessage.vue';
 
 </script>
